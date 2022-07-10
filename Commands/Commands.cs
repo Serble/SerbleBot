@@ -54,6 +54,38 @@ public static class Commands {
             false
             ),
         
+        new ("wheel-of-fortune", "Get a random thing in a list",
+            new [] {
+                new SlashCommandArgument("item1" , "Item to roll for", true , ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item2" , "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item3" , "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item4" , "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item5" , "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item6" , "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item7" , "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item8" , "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item9" , "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item10", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item11", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item12", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item13", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item14", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item15", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item16", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item17", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item18", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item19", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item20", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item21", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item22", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item23", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item24", "Item to roll for", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("item25", "Item to roll for", false, ApplicationCommandOptionType.String)
+            },
+            new WheelOfFortuneCommand(),
+            null,
+            false
+        ),
     };
 
 }
