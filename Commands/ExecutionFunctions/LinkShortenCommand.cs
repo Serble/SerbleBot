@@ -1,6 +1,4 @@
-using System.Xml.Serialization;
 using Discord.WebSocket;
-using GeneralPurposeLib;
 
 namespace SerbleBot.Commands.ExecutionFunctions; 
 
