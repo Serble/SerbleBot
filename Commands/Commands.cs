@@ -86,6 +86,15 @@ public static class Commands {
             null,
             false
         ),
+        
+        new ("youtube", "Search YouTube",
+            new [] {
+                new SlashCommandArgument("query", "The query to search YouTube for", true, ApplicationCommandOptionType.String)
+            },
+            new YouTubeCommand(),
+            null,
+            false
+            ),
     };
 
 }
