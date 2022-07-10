@@ -44,6 +44,16 @@ public static class Commands {
             false
             ),
         
+        new ("roll", "Roll dice",
+            new [] {
+                new SlashCommandArgument("sides", "The number of sides on the dice", false, ApplicationCommandOptionType.Integer),
+                new SlashCommandArgument("rolls", "The number of dice to roll", false, ApplicationCommandOptionType.Integer)
+            },
+            new DiceCommand(),
+            null,
+            false
+            ),
+        
     };
 
 }

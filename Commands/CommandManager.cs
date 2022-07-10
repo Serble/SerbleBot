@@ -58,7 +58,11 @@ public static class CommandManager {
         
     }
 
-    public static T GetArgument<T>(this SocketSlashCommand self, string name) {
+    public static T? GetArgument<T>(this SocketSlashCommand self, string name) {
+        IEnumerable<SocketSlashCommandDataOption> args = self.Data.Options.Where(option => option.Name == name);
+        if (!args.Any()) {
+            return default;
+        }
         return (T) self.Data.Options.Single(option => option.Name == name).Value;
     }
 
