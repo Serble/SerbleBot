@@ -2,6 +2,7 @@
 using Discord.WebSocket;
 using GeneralPurposeLib;
 using SerbleBot.Commands;
+using SerbleBot.Data;
 
 namespace SerbleBot;
 
@@ -69,6 +70,9 @@ internal static class Program {
 
             }
         }
+        
+        // Init Services
+        ServiceManager.Init();
         
         // Run bot
         List<DateTime> errors = new();

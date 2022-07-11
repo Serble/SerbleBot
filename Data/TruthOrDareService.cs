@@ -12,8 +12,8 @@ public static class TruthOrDareService {
     public static string RandomDare => _dares[Program.Random.Next(_dares.Length)];
 
     public static void Init() {
-        _truths = File.ReadAllLines("Data/RawData/truths.txt");
-        _dares = File.ReadAllLines("Data/RawData/dares.txt");
+        _truths = File.ReadAllLines("Data/RawData/truth.txt");
+        _dares = File.ReadAllLines("Data/RawData/dare.txt");
         Logger.Info($"Loaded {_truths.Length} truths and {_dares.Length} dares");
     }
     
