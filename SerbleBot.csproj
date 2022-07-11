@@ -19,7 +19,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data" />
+      <None Update="Data\RawData\dare.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\RawData\truth.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
