@@ -19,7 +19,8 @@ public class ImageSearchCommand : ICommandExecutionHandler {
             }));
             
             JsonDocument content = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
-            string url = content.RootElement.GetProperty("results")[0].GetProperty("img_src").GetString()!;
+            JsonElement results = content.RootElement.GetProperty("results");
+            string url = results[Program.Random.Next(results.GetArrayLength())].GetProperty("img_src").GetString()!;
             await cmd.ModifyOriginalResponseAsync(msg => msg.Content = url);
         }
         catch (Exception) {
