@@ -1,4 +1,6 @@
 using Discord.WebSocket;
+using GeneralPurposeLib;
+using Google;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
@@ -8,7 +10,14 @@ namespace SerbleBot.Commands.ExecutionFunctions;
 public class YouTubeCommand : ICommandExecutionHandler {
     public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         string searchTerm = cmd.GetArgument<string>("query") ?? "";
-        string result = await GetVideoLink(searchTerm);
+        string result;
+        try {
+            result = await GetVideoLink(searchTerm);
+        }
+        catch (GoogleApiException) {
+            await cmd.RespondWithEmbedAsync("Error", "Communication with the YouTube API failed", ResponseType.Error);
+            return;
+        }
         await cmd.RespondAsync(result);
     }
     
@@ -22,8 +31,15 @@ public class YouTubeCommand : ICommandExecutionHandler {
         searchListRequest.Q = search; // Query
         searchListRequest.MaxResults = 5;
 
-        // Call the search.list method to retrieve results matching the specified query term.
-        SearchListResponse? searchListResponse = await searchListRequest.ExecuteAsync();
+        SearchListResponse? searchListResponse;
+        try {
+            searchListResponse = await searchListRequest.ExecuteAsync();
+        }
+        catch (GoogleApiException e) {
+            Logger.Error("YouTube API Error: " + e.Message);
+            Logger.Error(e);
+            throw;
+        }
 
         if (searchListResponse.Items.Count == 0) {
             return "No results.";

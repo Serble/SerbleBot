@@ -14,13 +14,20 @@ public class LinkShortenCommand : ICommandExecutionHandler {
         string name = nameArray.Length == 1 ? (string) nameArray[0].Value : RandomString(10);
 
         // Send a http request to link.serble.net
-        HttpClient http = new ();
-        HttpResponseMessage response = await http.PostAsync("https://link.serble.net", new FormUrlEncodedContent(new[] {
-            new KeyValuePair<string, string>("location", link),
-            new KeyValuePair<string, string>("name", name)
-        }));
-        string content = await response.Content.ReadAsStringAsync();
-        
+        string content;
+        try {
+            HttpClient http = new ();
+            HttpResponseMessage response = await http.PostAsync("https://link.serble.net", new FormUrlEncodedContent(new[] {
+                new KeyValuePair<string, string>("location", link),
+                new KeyValuePair<string, string>("name", name)
+            }));
+            content = await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception) {
+            await cmd.RespondWithEmbedAsync("Error", "Failed to shorten link", ResponseType.Error);
+            return;
+        }
+
         // Send the response to the discord channel
         await cmd.RespondAsync(content);
     }
