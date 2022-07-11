@@ -13,7 +13,8 @@ internal static class Program {
 
     private static readonly Dictionary<string, string> DefaultConfig = new() {
         { "token", "discord bot token" },
-        { "testing_server_id", "911109182842602044" }
+        { "testing_server_id", "911109182842602044" },
+        { "youtube-api-key", "nice little api key" }
     };
     
 

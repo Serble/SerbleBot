@@ -15,7 +15,7 @@ public class YouTubeCommand : ICommandExecutionHandler {
     private static async Task<string> GetVideoLink(string search) {
         YouTubeService youtubeService = new YouTubeService(new BaseClientService.Initializer()
         {
-            ApiKey = "AIzaSyB-pYiO2rAf5usSALgeEy4IWFONxVJb4l0",
+            ApiKey = Program.Config!["youtube-api-key"],
             ApplicationName = "Serble Bot"
         });
 
