@@ -104,6 +104,15 @@ public static class Commands {
             null,
             false
             ),
+        
+        new ("clear", "Clears Multiple Messages",
+            new [] {
+                new SlashCommandArgument("count", "The amount of messages to delete", true, ApplicationCommandOptionType.Integer)
+            },
+            new ClearCommand(),
+            GuildPermission.ManageMessages,
+            false
+        ),
     };
 
 }
