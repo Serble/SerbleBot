@@ -13,8 +13,7 @@ public class YouTubeCommand : ICommandExecutionHandler {
     }
     
     private static async Task<string> GetVideoLink(string search) {
-        YouTubeService youtubeService = new YouTubeService(new BaseClientService.Initializer()
-        {
+        YouTubeService youtubeService = new(new BaseClientService.Initializer {
             ApiKey = Program.Config!["youtube-api-key"],
             ApplicationName = "Serble Bot"
         });
