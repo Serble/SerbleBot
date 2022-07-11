@@ -113,6 +113,20 @@ public static class Commands {
             GuildPermission.ManageMessages,
             false
         ),
+        
+        new ("truth", "Gives a truth prompt",
+            Array.Empty<SlashCommandArgument>(),
+            new TruthCommand(),
+            null,
+            false
+        ),
+        
+        new ("dare", "Gives a dare prompt",
+            Array.Empty<SlashCommandArgument>(),
+            new DareCommand(),
+            null,
+            false
+        ),
     };
 
 }
