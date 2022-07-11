@@ -14,8 +14,7 @@ public class ImageSearchCommand : ICommandExecutionHandler {
             HttpResponseMessage response = await http.PostAsync("https://search.serble.net/", new FormUrlEncodedContent(new[] {
                 new KeyValuePair<string, string>("category_images", "1"),
                 new KeyValuePair<string, string>("q", query),
-                new KeyValuePair<string, string>("format", "json"),
-                new KeyValuePair<string, string>("engines", "google")
+                new KeyValuePair<string, string>("format", "json")
             }));
             
             JsonDocument content = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
