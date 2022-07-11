@@ -9,7 +9,7 @@ public class WheelOfFortuneCommand : ICommandExecutionHandler {
         // Get the options
         {
             int i = 0;
-            foreach (var option in cmd.Data.Options) {
+            foreach (SocketSlashCommandDataOption? option in cmd.Data.Options) {
                 options[i] = (string)option.Value;
                 i++;
             }
