@@ -95,6 +95,15 @@ public static class Commands {
             null,
             false
             ),
+        
+        new ("image", "Search Serble Images",
+            new [] {
+                new SlashCommandArgument("query", "The query to search Serble Images for", true, ApplicationCommandOptionType.String)
+            },
+            new ImageSearchCommand(),
+            null,
+            false
+            ),
     };
 
 }
