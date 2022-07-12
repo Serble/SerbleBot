@@ -134,6 +134,14 @@ public static class Commands {
             null,
             false
         ),
+        
+        new ("scan-link", "Scans a link for malicious content", 
+            new [] {
+                new SlashCommandArgument("link", "The link to scan", true, ApplicationCommandOptionType.String)
+            }, 
+            new ScanLinkCommand(), 
+            null, 
+            false)
     };
 
 }
