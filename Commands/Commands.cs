@@ -127,6 +127,13 @@ public static class Commands {
             null,
             false
         ),
+        
+        new ("dad-joke", "Tells a dad joke",
+            Array.Empty<SlashCommandArgument>(),
+            new DadJokeCommand(),
+            null,
+            false
+        ),
     };
 
 }
