@@ -5,13 +5,10 @@ namespace SerbleBot.Commands.ExecutionFunctions;
 public class LinkShortenCommand : ICommandExecutionHandler {
     public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         // Get args
-        SocketSlashCommandDataOption[] linkArray = cmd.Data.Options.Where(option => option.Name == "link" ).ToArray();
-        if (linkArray.Length != 1) throw new Exception("Invalid number of arguments named link");
-        string link = (string) linkArray[0].Value;
-        
-        SocketSlashCommandDataOption[] nameArray = cmd.Data.Options.Where(option => option.Name == "name" ).ToArray();
-        if (nameArray.Length is not (1 or 0)) throw new Exception("Invalid number of arguments named name");
-        string name = nameArray.Length == 1 ? (string) nameArray[0].Value : RandomString(10);
+        string link = cmd.GetArgument<string>("link")!;
+        string name = cmd.GetArgument<string>("name") ?? RandomString(10);
+
+        await cmd.DeferAsync();
 
         // Send a http request to link.serble.net
         string content;
@@ -24,12 +21,12 @@ public class LinkShortenCommand : ICommandExecutionHandler {
             content = await response.Content.ReadAsStringAsync();
         }
         catch (Exception) {
-            await cmd.RespondWithEmbedAsync("Error", "Failed to shorten link", ResponseType.Error);
+            await cmd.ModifyWithEmbedAsync("Error", "Failed to shorten link", ResponseType.Error);
             return;
         }
 
         // Send the response to the discord channel
-        await cmd.RespondAsync(content);
+        await cmd.ModifyBodyTextAsync(content);
     }
     
     // Function to generate a random string of length n

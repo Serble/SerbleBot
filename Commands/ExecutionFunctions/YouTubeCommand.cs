@@ -10,15 +10,16 @@ namespace SerbleBot.Commands.ExecutionFunctions;
 public class YouTubeCommand : ICommandExecutionHandler {
     public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         string searchTerm = cmd.GetArgument<string>("query") ?? "";
-        string result;
+
+        await cmd.DeferAsync();
+        
         try {
-            result = await GetVideoLink(searchTerm);
+            string result = await GetVideoLink(searchTerm);
+            await cmd.ModifyBodyTextAsync(result);
         }
         catch (GoogleApiException) {
-            await cmd.RespondWithEmbedAsync("Error", "Communication with the YouTube API failed", ResponseType.Error);
-            return;
+            await cmd.ModifyWithEmbedAsync("Error", "Communication with the YouTube API failed", ResponseType.Error);
         }
-        await cmd.RespondAsync(result);
     }
     
     private static async Task<string> GetVideoLink(string search) {
@@ -51,6 +52,5 @@ public class YouTubeCommand : ICommandExecutionHandler {
         }
             
         return "No video results.";
-
     }
 }

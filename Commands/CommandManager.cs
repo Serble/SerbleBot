@@ -65,27 +65,37 @@ public static class CommandManager {
         }
         return (T) self.Data.Options.Single(option => option.Name == name).Value;
     }
-
-    public static async Task RespondWithEmbedAsync(this SocketSlashCommand self, string title, string body, ResponseType type = ResponseType.Info) {
+    
+    private static Embed GetEmbed(string title, string body, ResponseType type) {
         Color color = type switch {
             ResponseType.Success => Color.Green,
             ResponseType.Error => Color.Red,
             ResponseType.Info => Color.Blue,
             _ => Color.Blue
         };
-        await self.RespondAsync(embed: new EmbedBuilder()
-        .WithTitle(title)
-        .WithDescription(body)
-        .WithColor(color)
-        .Build());
+        
+        return new EmbedBuilder()
+            .WithTitle(title)
+            .WithDescription(body)
+            .WithColor(color)
+            .Build();
+    }
+
+    public static async Task RespondWithEmbedAsync(this SocketSlashCommand self, string title, string body, ResponseType type = ResponseType.Info) {
+        await self.RespondAsync(embed: GetEmbed(title, body, type));
     }
     
+    public static async Task ModifyWithEmbedAsync(this SocketSlashCommand self, string title, string body, ResponseType type = ResponseType.Info) {
+        await self.ModifyOriginalResponseAsync(msg => msg.Embed = GetEmbed(title, body, type));
+    }
+
+    public static async Task ModifyBodyTextAsync(this SocketSlashCommand self, string body) {
+        await self.ModifyOriginalResponseAsync(msg => msg.Content = body);
+    }
+
     public static async Task RespondWithUsageAsync(this SocketSlashCommand self, string usage) {
         await self.RespondWithEmbedAsync("Usage", usage, ResponseType.Error);
     }
-
-    
-
 }
 
 public enum ResponseType {

@@ -14,12 +14,11 @@ public class DadJokeCommand : ICommandExecutionHandler {
             HttpResponseMessage response = await http.GetAsync("https://icanhazdadjoke.com/");
 
             string joke = await response.Content.ReadAsStringAsync();
-            await cmd.ModifyOriginalResponseAsync(msg => msg.Content = joke);
+            await cmd.ModifyBodyTextAsync(joke);
         }
         catch (Exception e) {
-            Logger.Error(e);
-            await cmd.ModifyOriginalResponseAsync(msg => msg.Content = 
-                "Error: Could not think of a dad joke.");
+            Logger.Warn("Dad Joke request failed");
+            await cmd.ModifyWithEmbedAsync("Error", "Could not think of a dad joke.");
         }
     }
 }

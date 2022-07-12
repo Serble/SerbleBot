@@ -20,10 +20,10 @@ public class ImageSearchCommand : ICommandExecutionHandler {
             JsonDocument content = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
             JsonElement results = content.RootElement.GetProperty("results");
             string url = results[Program.Random.Next(results.GetArrayLength())].GetProperty("img_src").GetString()!;
-            await cmd.ModifyOriginalResponseAsync(msg => msg.Content = url);
+            await cmd.ModifyBodyTextAsync(url);
         }
         catch (Exception) {
-            await cmd.ModifyOriginalResponseAsync(msg => msg.Content = "Error: Could not find image.");
+            await cmd.ModifyWithEmbedAsync("Error", "Error: Could not find image.", ResponseType.Error);
         }
     }
 }

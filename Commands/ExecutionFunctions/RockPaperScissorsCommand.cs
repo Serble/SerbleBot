@@ -5,9 +5,8 @@ namespace SerbleBot.Commands.ExecutionFunctions;
 public class RockPaperScissorsCommand : ICommandExecutionHandler {
 
     public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
-        
         // Get choice
-        string choice = cmd.GetArgument<string>("choice");
+        string choice = cmd.GetArgument<string>("choice")!;
         
         string reply;
         switch (choice.ToLower()) {

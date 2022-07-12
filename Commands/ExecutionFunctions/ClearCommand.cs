@@ -9,9 +9,11 @@ public class ClearCommand : ICommandExecutionHandler {
         int messageCount = (int)cmd.GetArgument<long?>("count")!;
 
         await cmd.DeferAsync();
-        
-        if (messageCount > 1000)
-            await cmd.RespondAsync("You cannot delete more than 1000 messages at once.");
+
+        if (messageCount > 1000) {
+            await cmd.ModifyWithEmbedAsync("Error", "You cannot delete more than 1000 messages at once.", ResponseType.Error);
+            return;
+        }
 
         int messagesCount;
         try {
@@ -25,14 +27,7 @@ public class ClearCommand : ICommandExecutionHandler {
             messagesCount = enumeratedMessages.Count();
             
             if (cmd.Channel is not ITextChannel textChannel) {
-                // Create embed[]
-                Embed[] embeds = new Embed[1];
-                embeds[0] = new EmbedBuilder()
-                    .WithTitle("Usage")
-                    .WithDescription("You can only clear messages in non DM text channels.")
-                    .WithColor(Color.Red)
-                    .Build();
-                await cmd.ModifyOriginalResponseAsync(msg => msg.Embeds = new Optional<Embed[]>(embeds));
+                await cmd.ModifyWithEmbedAsync("Usage", "You can only clear messages in non DM text channels.", ResponseType.Error);
                 return;
             }
             
@@ -40,12 +35,11 @@ public class ClearCommand : ICommandExecutionHandler {
             await textChannel.DeleteMessagesAsync(enumeratedMessages);
         }
         catch (HttpException) {
-            await cmd.ModifyOriginalResponseAsync(msg => msg.Content = 
-                "An Error Occured, do I have permission to delete messages?");
+            await cmd.ModifyWithEmbedAsync("Error", "An Error Occured, do I have permission to delete messages?", ResponseType.Error);
             return;
         }
 
-        await cmd.ModifyOriginalResponseAsync(msg => 
-            msg.Content = $"Deleted {messagesCount} message{(messagesCount == 1 ? "" : "s")}.");
+        await cmd.ModifyWithEmbedAsync("Cleared Messages", 
+            $"Deleted {messagesCount} message{(messagesCount == 1 ? "" : "s")}.", ResponseType.Success);
     }
 }
