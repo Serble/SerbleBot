@@ -16,7 +16,7 @@ public class DadJokeCommand : ICommandExecutionHandler {
             string joke = await response.Content.ReadAsStringAsync();
             await cmd.ModifyBodyTextAsync(joke);
         }
-        catch (Exception e) {
+        catch (Exception) {
             Logger.Warn("Dad Joke request failed");
             await cmd.ModifyWithEmbedAsync("Error", "Could not think of a dad joke.");
         }

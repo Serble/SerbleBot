@@ -25,7 +25,7 @@ public static class CommandManager {
         }
     }
     
-    public static async void UpdateCommands(DiscordSocketClient client) {
+    public static void UpdateCommands(DiscordSocketClient client) {
         DateTime startTime = DateTime.Now;
         Logger.Info("Commencing command update");
 
