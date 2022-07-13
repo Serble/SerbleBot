@@ -141,6 +141,14 @@ public static class Commands {
             }, 
             new ScanLinkCommand(), 
             null, 
+            false),
+        
+        new ("sha256", "Computes a SHA256 hash of the provided text as UTF-8 encoded string", 
+            new [] {
+                new SlashCommandArgument("text", "The data to hash", true, ApplicationCommandOptionType.String)
+            }, 
+            new Sha256Command(), 
+            null, 
             false)
     };
 
