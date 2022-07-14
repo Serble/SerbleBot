@@ -149,6 +149,16 @@ public static class Commands {
             }, 
             new Sha256Command(), 
             null, 
+            false),
+        
+        new ("embed", "Creates an embed", 
+            new [] {
+                new SlashCommandArgument("title", "The title of the embed", true, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("body", "The body of the embed", true, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("colour", "The colour of the embed", true, ApplicationCommandOptionType.String),
+            }, 
+            new EmbedCommand(), 
+            GuildPermission.ManageGuild, 
             false)
     };
 
