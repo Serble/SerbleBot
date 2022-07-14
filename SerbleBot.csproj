@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <PackageReference Include="Discord.Net" Version="3.7.2" />
+      <PackageReference Include="ELIZA.NET" Version="1.2.0" />
       <PackageReference Include="Google.Apis.YouTube.v3" Version="1.57.0.2735" />
     </ItemGroup>
 
@@ -23,6 +24,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="Data\RawData\truth.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Data\RawData\eliza-doctor.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

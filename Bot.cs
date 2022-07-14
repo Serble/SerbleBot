@@ -2,12 +2,17 @@ using Discord;
 using Discord.WebSocket;
 using GeneralPurposeLib;
 using SerbleBot.Commands;
+using SerbleBot.EventHandlers;
 
 namespace SerbleBot; 
 
 public class Bot {
     
-    private DiscordSocketClient? _client;
+    private static DiscordSocketClient? _client;
+
+    public static bool IsMe(SocketUser user) {
+        return user.Id == _client!.CurrentUser.Id;
+    }
 
     public async Task Run() {
         _client = new DiscordSocketClient();
@@ -16,6 +21,7 @@ public class Bot {
         _client.Log += Log;
         _client.Ready += ClientReady;
         _client.SlashCommandExecuted += SlashCommandHandler;
+        _client.MessageReceived += MessageHandler.OnMessage;
 
         await _client.LoginAsync(TokenType.Bot, Program.Config!["token"]);
         await _client.StartAsync();
