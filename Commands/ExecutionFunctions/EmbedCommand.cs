@@ -8,9 +8,13 @@ public class EmbedCommand : ICommandExecutionHandler {
 
         await cmd.DeferAsync();
         
-        string title = cmd.GetArgument<string>("title") ?? "";
-        string body = cmd.GetArgument<string>("body") ?? "";
-        string colour = cmd.GetArgument<string>("colour") ?? "Blue";
+        string title = cmd.GetArgument<string?>("title") ?? "";
+        string body = cmd.GetArgument<string>("body")!;
+        string colour = cmd.GetArgument<string?>("colour") ?? "Blue";
+        string footer = cmd.GetArgument<string?>("footer") ?? "";
+        string url = cmd.GetArgument<string?>("url") ?? "";
+        string imageUrl = cmd.GetArgument<string?>("image-url") ?? "";
+        string thumbnailUrl = cmd.GetArgument<string?>("thumbnail-url") ?? "";
 
         Color color;
         switch (colour.ToLower()) {
@@ -48,14 +52,18 @@ public class EmbedCommand : ICommandExecutionHandler {
                 color = Color.DarkerGrey;
                 break;
             default:
-                await cmd.RespondWithUsageAsync("Invalid colour");
+                await cmd.ModifyWithEmbedAsync("Usage", "Invalid colour", ResponseType.Error);
                 return;
         }
 
         EmbedBuilder embed = new EmbedBuilder()
             .WithTitle(title)
             .WithDescription(body)
-            .WithColor(color);
+            .WithColor(color)
+            .WithFooter(footer)
+            .WithUrl(url)
+            .WithImageUrl(imageUrl)
+            .WithThumbnailUrl(thumbnailUrl);
 
         await cmd.Channel.SendMessageAsync(embed: embed.Build());
         await cmd.DeleteOriginalResponseAsync();

@@ -153,9 +153,13 @@ public static class Commands {
         
         new ("embed", "Creates an embed", 
             new [] {
-                new SlashCommandArgument("title", "The title of the embed", true, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("title", "The title of the embed", false, ApplicationCommandOptionType.String),
                 new SlashCommandArgument("body", "The body of the embed", true, ApplicationCommandOptionType.String),
-                new SlashCommandArgument("colour", "The colour of the embed", true, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("colour", "The colour of the embed", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("footer", "The footer of the embed", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("url", "The url of the embed", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("image-url", "The image of the embed", false, ApplicationCommandOptionType.String),
+                new SlashCommandArgument("thumbnail-url", "The thumbnail of the embed", false, ApplicationCommandOptionType.String)
             }, 
             new EmbedCommand(), 
             GuildPermission.ManageGuild, 
