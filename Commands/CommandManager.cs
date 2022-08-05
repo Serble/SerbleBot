@@ -31,24 +31,16 @@ public static class CommandManager {
 
         foreach (SlashCommand cmd in Commands.SlashCommands) {
             Logger.Debug("Updating command: " + cmd.Name);
-            SlashCommandBuilder builder = new ();
-            builder.WithName(cmd.Name);
-            builder.WithDescription(cmd.Description);
-            builder.WithDefaultMemberPermissions(cmd.RequiredPermissions);
-            foreach (SlashCommandArgument arg in cmd.Arguments) {
-                builder.AddOption(arg.Name, arg.Type, arg.Description, arg.Required);
-            }
-
             Logger.Debug("Sending command update request");
             if (cmd.TestingCommand) {
                 Logger.Debug("Testing command, sending as guild specific");
                 SocketGuild testingGuid = client.GetGuild(ulong.Parse(Program.Config!["testing_server_id"]));
-                testingGuid.CreateApplicationCommandAsync(builder.Build()).Wait();
+                testingGuid.CreateApplicationCommandAsync(cmd.Build()).Wait();
                 Logger.Debug("Request finished");
             }
             else {
                 Logger.Debug("Sending command as global");
-                client.CreateGlobalApplicationCommandAsync(builder.Build()).Wait();
+                client.CreateGlobalApplicationCommandAsync(cmd.Build()).Wait();
                 Logger.Debug("Request finished");
             }
             Logger.Info("Created command: " + cmd.Name);
@@ -56,6 +48,22 @@ public static class CommandManager {
         
         Logger.Info("Command update completed in " + (DateTime.Now - startTime).TotalSeconds + " seconds");
         
+    }
+
+    public static void UpdateCommand(DiscordSocketClient client, string cmdName) {
+        SlashCommand cmd = Commands.SlashCommands.Single(slashCmd => slashCmd.Name == cmdName);
+        if (cmd.TestingCommand) {
+            Logger.Debug("Testing command, sending as guild specific");
+            SocketGuild testingGuid = client.GetGuild(ulong.Parse(Program.Config!["testing_server_id"]));
+            testingGuid.CreateApplicationCommandAsync(cmd.Build()).Wait();
+            Logger.Debug("Request finished");
+        }
+        else {
+            Logger.Debug("Sending command as global");
+            client.CreateGlobalApplicationCommandAsync(cmd.Build()).Wait();
+            Logger.Debug("Request finished");
+        }
+        Logger.Info("Created command: " + cmd.Name);
     }
 
     public static T? GetArgument<T>(this SocketSlashCommand self, string name) {

@@ -68,6 +68,29 @@ internal static class Program {
                     Logger.Debug("Command execution finished");
                     Logger.WaitFlush();
                     return 0;
+                
+                case "updatecommand":
+                    if (args.Length != 2) {
+                        Logger.Info("Usage: updatecommand <command>");
+                        Logger.WaitFlush();
+                        return 1;
+                    }
+                    DiscordSocketClient updateClient = new ();
+                    bool updateFinished = false;
+                    updateClient.Ready += () => {
+                        CommandManager.UpdateCommand(updateClient, args[1]);
+                        Logger.Info("Command updated");
+                        updateFinished = true;
+                        return Task.CompletedTask;
+                    };
+                    updateClient.LoginAsync(TokenType.Bot, Config["token"]).Wait();
+                    updateClient.StartAsync().Wait();
+                    while (!updateFinished) {
+                        Thread.Sleep(100);
+                    }
+                    Logger.Debug("Command execution finished");
+                    Logger.WaitFlush();
+                    return 0;
 
             }
         }

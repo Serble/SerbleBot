@@ -26,4 +26,17 @@ public class SlashCommand {
         Arguments = args;
     }
 
+    public SlashCommandProperties Build() {
+        SlashCommandBuilder builder = new SlashCommandBuilder()
+            .WithName(Name)
+            .WithDescription(Description)
+            .WithDefaultMemberPermissions(RequiredPermissions);
+        
+        foreach (SlashCommandArgument arg in Arguments) {
+            builder.AddOption(arg.Name, arg.Type, arg.Description, arg.Required);
+        }
+        
+        return builder.Build();
+    }
+
 }
