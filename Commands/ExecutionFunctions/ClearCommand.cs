@@ -5,7 +5,7 @@ using Discord.WebSocket;
 namespace SerbleBot.Commands.ExecutionFunctions; 
 
 public class ClearCommand : ICommandExecutionHandler {
-    public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
+    public async Task Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         int messageCount = (int)cmd.GetArgument<long?>("count")!;
 
         await cmd.DeferAsync();

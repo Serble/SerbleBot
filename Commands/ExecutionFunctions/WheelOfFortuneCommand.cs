@@ -3,7 +3,7 @@ using Discord.WebSocket;
 namespace SerbleBot.Commands.ExecutionFunctions; 
 
 public class WheelOfFortuneCommand : ICommandExecutionHandler {
-    public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
+    public async Task Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         string[] options = new string[cmd.Data.Options.Count];
 
         // Get the options

@@ -29,7 +29,7 @@ public class EightBallCommand : ICommandExecutionHandler {
             
     };
     
-    public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
+    public async Task Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         await cmd.RespondWithEmbedAsync("8Ball", Responses[Program.Random.Next(Responses.Count)]);
     }
 }

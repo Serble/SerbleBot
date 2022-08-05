@@ -3,7 +3,7 @@ using Discord.WebSocket;
 namespace SerbleBot.Commands.ExecutionFunctions; 
 
 public class DiceCommand : ICommandExecutionHandler {
-     public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
+     public async Task Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         int sides = (int) (cmd.GetArgument<long?>("sides") ?? 6);
         int rolls = (int) (cmd.GetArgument<long?>("rolls") ?? 1);
         switch (sides) {

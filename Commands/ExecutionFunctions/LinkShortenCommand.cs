@@ -3,7 +3,7 @@ using Discord.WebSocket;
 namespace SerbleBot.Commands.ExecutionFunctions; 
 
 public class LinkShortenCommand : ICommandExecutionHandler {
-    public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
+    public async Task Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         // Get args
         string link = cmd.GetArgument<string>("link")!;
         string name = cmd.GetArgument<string>("name") ?? RandomString(10);

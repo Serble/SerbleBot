@@ -5,7 +5,7 @@ using GeneralPurposeLib;
 namespace SerbleBot.Commands.ExecutionFunctions; 
 
 public class DadJokeCommand : ICommandExecutionHandler {
-    public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
+    public async Task Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         await cmd.DeferAsync();
         
         try {

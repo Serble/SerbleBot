@@ -5,7 +5,7 @@ using SerbleBot.Data;
 namespace SerbleBot.Commands.ExecutionFunctions; 
 
 public class ScanLinkCommand : ICommandExecutionHandler {
-    public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
+    public async Task Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         string link = cmd.GetArgument<string>("link")!;
         await cmd.RespondWithEmbedAsync("Link Scanner", "Submitting link for scanning...");
 

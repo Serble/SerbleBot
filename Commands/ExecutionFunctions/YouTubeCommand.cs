@@ -8,7 +8,7 @@ using Google.Apis.YouTube.v3.Data;
 namespace SerbleBot.Commands.ExecutionFunctions; 
 
 public class YouTubeCommand : ICommandExecutionHandler {
-    public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
+    public async Task Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
         string searchTerm = cmd.GetArgument<string>("query") ?? "";
 
         await cmd.DeferAsync();
