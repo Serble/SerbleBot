@@ -4,7 +4,7 @@ using Discord.WebSocket;
 namespace SerbleBot.Commands.ExecutionFunctions; 
 
 public class EmbedCommand : ICommandExecutionHandler {
-    public async void Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
+    public async Task Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
 
         await cmd.DeferAsync();
         
