@@ -5,6 +5,6 @@ namespace SerbleBot.Commands.ExecutionFunctions;
 
 public class DareCommand : ICommandExecutionHandler {
     public async Task Execute(SocketSlashCommand cmd, DiscordSocketClient client) {
-        await cmd.RespondWithEmbedAsync("Truth", TruthOrDareService.RandomDare);
+        await cmd.RespondWithEmbedAsync("Dare", TruthOrDareService.RandomDare);
     }
 }
